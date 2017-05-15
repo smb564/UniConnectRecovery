@@ -2,6 +2,7 @@ package com.smbsoft.uniconnect.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.smbsoft.uniconnect.domain.Opportunity;
+import com.smbsoft.uniconnect.security.SecurityUtils;
 import com.smbsoft.uniconnect.service.OpportunityService;
 import com.smbsoft.uniconnect.web.rest.util.HeaderUtil;
 import com.smbsoft.uniconnect.web.rest.util.PaginationUtil;
@@ -32,7 +33,7 @@ public class OpportunityResource {
     private final Logger log = LoggerFactory.getLogger(OpportunityResource.class);
 
     private static final String ENTITY_NAME = "opportunity";
-        
+
     private final OpportunityService opportunityService;
 
     public OpportunityResource(OpportunityService opportunityService) {
@@ -53,7 +54,10 @@ public class OpportunityResource {
         if (opportunity.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new opportunity cannot already have an ID")).body(null);
         }
-        Opportunity result = opportunityService.save(opportunity);
+
+        // Set the owner as the current user
+        Opportunity result = opportunityService.save(opportunity.ownerLogin(SecurityUtils.getCurrentUserLogin()));
+
         return ResponseEntity.created(new URI("/api/opportunities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -91,7 +95,9 @@ public class OpportunityResource {
     @Timed
     public ResponseEntity<List<Opportunity>> getAllOpportunities(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Opportunities");
-        Page<Opportunity> page = opportunityService.findAll(pageable);
+
+        // Send only the opportunities posed for company users , admins send all
+        Page<Opportunity> page = opportunityService.findAllForUser(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/opportunities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

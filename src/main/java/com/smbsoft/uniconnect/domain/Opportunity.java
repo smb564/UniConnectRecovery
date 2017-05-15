@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -41,6 +43,45 @@ public class Opportunity implements Serializable {
 
     @Field("owner_login")
     private String ownerLogin;
+
+    @Field("tags")
+    private List<String> tags;
+
+    @Field("targets")
+    private List<List<String>> targets;
+
+    // 0th element semester, 1st element department
+    @Field("questions")
+    private List<String> questions;
+
+    public Opportunity(){
+        tags = new ArrayList<>();
+        questions = new ArrayList<>();
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<List<String>> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(List<List<String>> targets) {
+        this.targets = targets;
+    }
+
+    public List<String> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<String> questions) {
+        this.questions = questions;
+    }
 
     public String getId() {
         return id;
