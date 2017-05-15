@@ -16,6 +16,7 @@
         vm.isAdmin = false;
 
         vm.giveAnswer = giveAnswer;
+        vm.upVote = upVote;
 
 
         loadQuestions();
@@ -69,6 +70,10 @@
                 question.answer = answer;
                 OpportunityQuestion.update(question);
             }
+        }
+
+        function upVote(questionId){
+            OpportunityQuestion.upVote({qId : questionId, userId : vm.account.login}, loadQuestions);
         }
 
     }

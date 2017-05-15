@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -37,6 +38,17 @@ public class OpportunityQuestion implements Serializable {
 
     @Field("answer")
     private String answer;
+
+    @Field("votedUsers")
+    private List<String> votedUsers;
+
+    public List<String> getVotedUsers() {
+        return votedUsers;
+    }
+
+    public void setVotedUsers(List<String> votedUsers) {
+        this.votedUsers = votedUsers;
+    }
 
     public String getId() {
         return id;
@@ -141,5 +153,13 @@ public class OpportunityQuestion implements Serializable {
             ", ownerLogin='" + ownerLogin + "'" +
             ", answer='" + answer + "'" +
             '}';
+    }
+
+    public void upVote(){
+        votes ++;
+    }
+
+    public void downVote(){
+        votes --;
     }
 }

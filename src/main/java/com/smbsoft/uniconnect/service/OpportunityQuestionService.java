@@ -110,4 +110,44 @@ public class OpportunityQuestionService {
 
         return result;
     }
+
+    public void upVote(String questionId, String userId) {
+        OpportunityQuestion oq = opportunityQuestionRepository.findOne(questionId);
+
+        Optional<List<String>> votedOptional = Optional.ofNullable(oq.getVotedUsers());
+
+        if(!votedOptional.isPresent()){
+            log.debug("No voted list found, so create new list and upvote");
+            oq.upVote();
+            oq.setVotedUsers(new ArrayList<>());
+            oq.getVotedUsers().add(userId);
+
+            opportunityQuestionRepository.save(oq);
+            return;
+        }
+
+//        for(String user : votedOptional.get()){
+//            if (user.equals(userId)){
+//                log.debug("Found an already voted member, so down vote");
+//                oq.downVote();
+//                oq.getVotedUsers().remove(userId);
+//                opportunityQuestionRepository.save(oq);
+//                return;
+//            }
+//        }
+
+        if (oq.getVotedUsers().contains(userId)){
+            log.debug("Found an already voted member, so down vote");
+            oq.downVote();
+            oq.getVotedUsers().remove(userId);
+            opportunityQuestionRepository.save(oq);
+            return;
+        }
+
+        // should be new vote
+        oq.upVote();
+        oq.getVotedUsers().add(userId);
+        opportunityQuestionRepository.save(oq);
+        log.debug("Found a new member, so upvote");
+    }
 }

@@ -1,6 +1,4 @@
 <div>
-    {{vm.opportunity}}
-
     <div class="jumbotron">
         <h1 class="text-center">{{vm.opportunity.title}}</h1>
         <hr>
@@ -11,7 +9,7 @@
         </span>
     </div>
 
-    <div class="panel panel-default" ng-repeat="question in vm.questions">
+    <div class="panel panel-default" ng-repeat="question in vm.questions | orderBy : '-votes'">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-md-8">
@@ -21,7 +19,7 @@
                     By <b><u>{{question.ownerLogin}}</u></b> on {{question.date}} <b>Votes : {{question.votes}}</b>
                 </div>
                 <div class="col-md-1">
-                    <button type="button" ng-click="vm.upVote(question)" class="btn btn-sm btn-info"><span class="glyphicon-upload glyphicon"></span></button>
+                    <button type="button" ng-click="vm.upVote(question.id)" class="btn btn-sm btn-info"><span class="glyphicon-upload glyphicon"></span></button>
                 </div>
             </div>
         </div>
@@ -33,9 +31,6 @@
             <button type="button" ng-click="vm.giveAnswer(question)" class="btn btn-sm btn-primary"><span class="glyphicon-comment glyphicon"></span>&nbsp&nbspAnswer</button>
         </div>
     </div>
-
-
-    {{vm.questions}}
 
     <div class="row">
         <div class="col-md-10">

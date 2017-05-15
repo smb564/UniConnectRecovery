@@ -167,4 +167,13 @@ public class OpportunityQuestionResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+
+
+    @GetMapping("/questions/{questionId}/user/{userId}/upvote")
+    @ResponseStatus(value = HttpStatus.OK)
+    public void upvoteQuestion(@PathVariable String questionId, @PathVariable String userId) throws URISyntaxException {
+        log.debug("REST request to upvote OpportunityQuestion : {}", questionId);
+
+        opportunityQuestionService.upVote(questionId, userId);
+    }
 }

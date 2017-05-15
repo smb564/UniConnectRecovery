@@ -50,6 +50,10 @@
                 method : 'GET',
                 url : 'api/opportunity/:id/questions',
                 isArray: true
+            },
+            'upVote' : {
+                method : 'GET',
+                url : 'api/questions/:qId/user/:userId/upvote'
             }
         });
     }
