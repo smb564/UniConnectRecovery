@@ -36,6 +36,16 @@
                     copy.date = DateUtils.convertLocalDateToServer(copy.date);
                     return angular.toJson(copy);
                 }
+            },
+            'getTarget' : {
+                method: 'POST',
+                transformRequest: function (data) {
+                    var copy = angular.copy(data);
+                    copy.date = DateUtils.convertLocalDateToServer(copy.date);
+                    return angular.toJson(copy);
+                },
+                url : 'api/notifications/target',
+                isArray : true
             }
         });
     }

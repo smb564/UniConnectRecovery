@@ -1,17 +1,46 @@
 <div ng-cloak>
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Welcome to UniConnect</h1>
+
+    <div ng-hide="vm.account">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Welcome to UniConnect</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li>Students can share!</li>
+                    <li>Companies can recruit</li>
+                    <li>Everything is about sharing</li>
+                </ul>
+            </div>
         </div>
     </div>
 
+
     <div class="row">
-        <div class="col-md-12">
-            <ul>
-                <li>Students can share!</li>
-                <li>Companies can recruit</li>
-                <li>Everything is about sharing</li>
+        <div class="col-md-6">
+            <ul class="list-group">
+                <li class="list-group-item active">Notifications</li>
+                <li class="list-group-item" ng-repeat="notification in vm.account.notifications" ng-hide="notification.viewed">
+                        <p ng-bind-html="notification.notification"></p>
+                    <span class="label label-info">New</span>
+                        <a type="button" ng-click="vm.disposeUserNotification($index)" class="close pull-right" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-6" ng-show="vm.student">
+            <ul class="list-group">
+                <li class="list-group-item active">Global Notifications</li>
+                <li class="list-group-item" ng-repeat="notification in vm.notifications" ng-hide="notification.viewed">
+                    <p ng-bind-html="notification.notification"></p>
+                    <span class="label label-info">New</span>
+                </li>
             </ul>
         </div>
     </div>
+
 </div>

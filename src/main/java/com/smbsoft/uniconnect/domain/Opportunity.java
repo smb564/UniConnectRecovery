@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 
 @Document(collection = "opportunity")
-public class Opportunity implements Serializable {
+public class Opportunity extends AbstractPost implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

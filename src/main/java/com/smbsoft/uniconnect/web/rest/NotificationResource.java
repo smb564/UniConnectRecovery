@@ -125,4 +125,18 @@ public class NotificationResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    /**
+     * GET  /notifications/target: get notifications within 3 days for target department
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the notification, or with status 404 (Not Found)
+     */
+    @PostMapping("/notifications/target")
+    @Timed
+    public ResponseEntity<List<Notification>> getNotification(@Valid @RequestBody List<String> target) {
+        log.debug("REST request to get Notification for a target: {}", target);
+        List<Notification> notification = notificationService.findForTarget(target);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(notification));
+    }
+
+
 }

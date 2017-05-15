@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 public class NotificationService {
 
     private final Logger log = LoggerFactory.getLogger(NotificationService.class);
-    
+
     private final NotificationRepository notificationRepository;
 
     public NotificationService(NotificationRepository notificationRepository) {
@@ -38,7 +39,7 @@ public class NotificationService {
 
     /**
      *  Get all the notifications.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
@@ -68,5 +69,12 @@ public class NotificationService {
     public void delete(String id) {
         log.debug("Request to delete Notification : {}", id);
         notificationRepository.delete(id);
+    }
+
+    public List<Notification> findForTarget(List<String> target) {
+        String department = target.get(1);
+        int semester = Integer.parseInt(target.get(0));
+
+        return notificationRepository.findAllByDepartmentAndAndSemesterAndDateGreaterThanEqual(department, semester, LocalDate.now().minusDays(3));
     }
 }

@@ -179,6 +179,7 @@ public class UserService {
                 user.setImageUrl(userDTO.getImageUrl());
                 user.setActivated(userDTO.isActivated());
                 user.setLangKey(userDTO.getLangKey());
+                user.setNotifications(userDTO.getNotifications());
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
                 userDTO.getAuthorities().stream()
@@ -273,5 +274,14 @@ public class UserService {
         userRepository.save(user.get());
 
         return userNotification;
+    }
+
+    public Optional<List<UserNotification>> getNotifications(String login) {
+        Optional<User> user = userRepository.findOneByLogin(login);
+
+        if (!user.isPresent())
+            return Optional.empty();
+
+        return Optional.ofNullable(user.get().getNotifications());
     }
 }

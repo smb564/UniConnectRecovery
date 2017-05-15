@@ -27,6 +27,11 @@
                     data = angular.fromJson(data);
                     return data;
                 }
+            },
+            'getNotifications' : {
+                method : 'GET',
+                isArray : true,
+                url : 'api/users/:login/notification'
             }
         });
 

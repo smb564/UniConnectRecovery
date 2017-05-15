@@ -204,4 +204,14 @@ public class UserResource {
 
         return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
     }
+
+    @GetMapping("/users/{login}/notification")
+    @Timed
+    public ResponseEntity<List<UserNotification>> getNotifcations(@PathVariable String login) throws URISyntaxException {
+        log.debug("REST request to get notification to User : {}", login);
+
+        Optional<List<UserNotification>> result = userService.getNotifications(login);
+
+        return ResponseUtil.wrapOrNotFound(result);
+    }
 }
