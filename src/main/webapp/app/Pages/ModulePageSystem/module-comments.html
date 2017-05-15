@@ -1,0 +1,67 @@
+<div>
+    <h4>By <u>{{vm.post.ownerLogin}}</u></h4>
+    <hr>
+    <h2>{{vm.post.title}}</h2>
+    <h4>{{vm.post.description}}</h4>
+
+    <hr>
+    <br>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="comment in vm.comments | orderBy:'-votes'">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <p ng-bind-html="vm.formatString(comment.text)" linkify></p>
+                        </div>
+                        <div class="col-md-2">
+                            <button ng-show="vm.isAdmin || vm.account.login === comment.user" ng-click="vm.deleteComment(comment.id)" type="button" class="close" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <p><b>{{comment.date}}</b></p>
+                            <p><b>By <u>{{comment.user}}</u></b></p>
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10">
+            <form name="editForm" role="form" novalidate show-validation>
+                <div class="form-group">
+                    <label class="control-label" for="field_text">Comment</label>
+                    <textarea type="text" class="form-control" name="text" id="field_text"
+                              ng-model="vm.comment.text"
+                              required ng-minlength="5" ng-maxlength="150" rows=3></textarea>
+                    <div ng-show="editForm.text.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.text.$error.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.text.$error.minlength" translate-value-min="5">
+                            This field is required to be at least 5 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.text.$error.maxlength">
+                            This field cannot be longer than 150 characters.
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-2">
+            <br>
+            <br>
+            <button ng-click="vm.saveComment()" type="button" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-block btn-primary">
+                <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Add Comment</span>
+            </button>
+        </div>
+    </div>
+
+</div>

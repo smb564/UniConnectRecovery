@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "graduate",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "graduate_year",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "current_semester",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": "0",
+            "fieldValidateRulesMax": "8"
+        }
+    ],
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "student_user",
+    "pagination": "pager"
+}

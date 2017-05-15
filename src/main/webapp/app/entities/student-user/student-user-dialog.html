@@ -1,0 +1,57 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myStudent_userLabel" data-translate="uniConnectApp.student_user.home.createOrEditLabel">Create or edit a Student User</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.student_user.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.student_user.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="uniConnectApp.student_user.graduate" for="field_graduate">Graduate</label>
+                <input type="checkbox" name="graduate" id="field_graduate"
+                          ng-model="vm.student_user.graduate"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="uniConnectApp.student_user.graduateYear" for="field_graduate_year">Graduate Year</label>
+            <input type="number" class="form-control" name="graduateYear" id="field_graduate_year"
+                    ng-model="vm.student_user.graduateYear"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="uniConnectApp.student_user.currentSemester" for="field_current_semester">Current Semester</label>
+            <input type="number" class="form-control" name="currentSemester" id="field_current_semester"
+                    ng-model="vm.student_user.currentSemester"
+                    min="0" max="8"/>
+            <div ng-show="editForm.currentSemester.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.currentSemester.$error.min" translate-value-min="0">
+                    This field should be at least 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.currentSemester.$error.max">
+                    This field cannot be more than 8.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.currentSemester.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

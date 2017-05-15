@@ -1,0 +1,10 @@
+<div>
+    <div class="card " ng-repeat="forum in vm.forums">
+        <h3 class="card-header"><b>{{forum.title}}</b></h3>
+        <div class="card-block">
+            <h4 class="card-title">{{forum.description}}</h4>
+            <a ui-sref="forum-thread({id : forum.id})" class="btn btn-primary">Go Inside</a>
+        </div>
+        <hr>
+    </div>
+</div>

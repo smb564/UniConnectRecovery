@@ -1,0 +1,208 @@
+<div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h2>Welcome <b>{{vm.settingsAccount.login}}</b>! time to update yourself!</h2>
+
+            <div class="alert alert-success" ng-show="vm.success">
+                <strong>Updates saved!</strong>
+            </div>
+
+           <jhi-alert-error></jhi-alert-error>
+
+            <form name="form" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+                <div class="form-group">
+                    <label class="control-label" for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your first name"
+                           ng-model="vm.settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required maxlength="50">
+                    <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
+                        <p class="help-block"
+                               ng-show="form.firstName.$error.required">
+                            Your first name is required.
+                        </p>
+                        <p class="help-block"
+                               ng-show="form.firstName.$error.minlength">
+                            Your first name is required to be at least 1 character.
+                        </p>
+                        <p class="help-block"
+                               ng-show="form.firstName.$error.maxlength">
+                            Your first name cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your last name"
+                           ng-model="vm.settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required maxlength="50">
+                    <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
+                        <p class="help-block"
+                               ng-show="form.lastName.$error.required">
+                            Your last name is required.
+                        </p>
+                        <p class="help-block"
+                               ng-show="form.lastName.$error.minlength">
+                            Your last name is required to be at least 1 character.
+                        </p>
+                        <p class="help-block"
+                               ng-show="form.lastName.$error.maxlength">
+                            Your last name cannot be longer than 50 characters.
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="email">E-mail</label>
+                    <input type="email" class="form-control" readonly id="email" name="email" placeholder="Your e-mail"
+                           ng-model="vm.settingsAccount.email" ng-minlength=5 ng-maxlength=100 required maxlength="100">
+                    <div ng-show="form.email.$dirty && form.email.$invalid">
+                        <p class="help-block"
+                               ng-show="form.email.$error.required">
+                            Your e-mail is required.
+                        </p>
+                        <p class="help-block"
+                               ng-show="form.email.$error.email">
+                            Your e-mail is invalid.
+                        </p>
+                        <p class="help-block"
+                               ng-show="form.email.$error.minlength">
+                            Your e-mail is required to be at least 5 characters.
+                        </p>
+                        <p class="help-block"
+                               ng-show="form.email.$error.maxlength">
+                            Your e-mail cannot be longer than 100 characters.
+                        </p>
+                    </div>
+                </div>
+
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <hr />
+        </div>
+    </div>
+
+    <div class="row" ng-show="vm.isUser && !vm.isAdmin">
+        <div class="col-md-8 col-md-offset-2">
+            <h4 id="myStudentUserLabel" data-translate="uniConnectApp.student_user.home.createOrEditLabel">Update Your Profile</h4>
+
+            <form name="editForm" role="form" novalidate ng-submit="vm.saveProfile()" show-validation>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" ng-show="vm.studentUser.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                           ng-model="vm.studentUser.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="control-label" data-translate="uniConnectApp.student_user.graduate" for="field_graduate">Graduate</label>
+                    <input type="checkbox" name="graduate" id="field_graduate"
+                           ng-model="vm.studentUser.graduate"/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" data-translate="uniConnectApp.student_user.graduateYear" for="field_graduate_year">Graduate Year</label>
+                    <input type="number" class="form-control" name="graduateYear" id="field_graduate_year"
+                           ng-model="vm.studentUser.graduateYear" min="1900" max="2500" required
+                    />
+
+                    <div ng-show="editForm.graduateYear.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.graduateYear.$error.min" translate-value-min="0">
+                            Graduate year can't possibly be before 1900?
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.graduateYear.$error.max">
+                            Hey! are you from future? Please check the graduate year!
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.graduateYear.$error.number">
+                            Graduate Year should be a number
+                        </p>
+                        <p class="help-block"
+                        ng-show="editForm.graduateYear.$error.required">
+                            You should provide your graduate year
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="form-group" ng-hide="vm.studentUser.graduate">
+                    <label class="control-label" data-translate="uniConnectApp.student_user.currentSemester" for="field_current_semester">Current Semester</label>
+                    <input type="number" class="form-control" name="currentSemester" id="field_current_semester"
+                           ng-model="vm.studentUser.currentSemester"
+                           min="0" max="8"/>
+                    <div ng-show="editForm.currentSemester.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.currentSemester.$error.min" translate-value-min="0">
+                            This field should be at least 0.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.currentSemester.$error.max">
+                            This field cannot be more than 8.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.currentSemester.$error.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="departmentSelect">Department</label>
+                    <select class="form-control" name="department" id="departmentSelect" ng-model="vm.studentUser.department" ng-options="dep for dep in vm.departments"></select>
+                </div>
+
+                <div class="form-group">
+                    <ui-select multiple ng-model="vm.studentUser.interests" theme="bootstrap"  close-on-select="false" title="Choose Interests">
+                        <ui-select-match placeholder="Select Interests">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="interest in vm.interests | filter:$select.search">
+                            {{interest}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+
+                <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="row" ng-show="vm.isCompany && !vm.isAdmin">
+        <div class="col-md-8 col-md-offset-2">
+            <form name="editForm2" role="form" novalidate ng-submit="vm.saveCompany()" show-validation>
+
+                <h4 class="modal-title" id="myCompanyUserLabel">Update Profile</h4>
+
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group">
+                    <label class="control-label" for="field_company">Company</label>
+                    <input type="text" class="form-control" name="company" id="field_company"
+                           ng-model="vm.companyUser.company"
+                           required/>
+                    <div ng-show="editForm2.company.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm2.company.$error.required">
+                            You have to specify your company/institute name
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="field_type">Type</label>
+                    <select class="form-control" name="type" ng-model="vm.companyUser.type" id="field_type">
+                        <option value="Company">Company</option>
+                        <option value="Research">Research</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <button type="submit" ng-disabled="editForm2.$invalid || vm.isSaving" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

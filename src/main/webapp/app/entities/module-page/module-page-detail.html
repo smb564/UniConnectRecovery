@@ -1,0 +1,36 @@
+
+<div>
+    <h2><span>Module Page</span> {{vm.modulePage.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{vm.modulePage.title}}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.modulePage.description}}</span>
+        </dd>
+        <dt><span>Module Code</span></dt>
+        <dd>
+            <span>{{vm.modulePage.moduleCode}}</span>
+        </dd>
+        <dt><span>Targets</span></dt>
+        <dd></dd>
+        <dd ng-repeat="target in vm.modulePage.targets">
+            <span><b>Semester: </b>{{target[0]}} <b>Department: </b>{{target[1]}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="module-page-detail.edit({id:vm.modulePage.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

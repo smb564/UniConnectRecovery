@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="uniConnectApp.student_user.detail.title">Student User</span> {{vm.student_user.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="uniConnectApp.student_user.graduate">Graduate</span></dt>
+        <dd>
+            <span>{{vm.student_user.graduate}}</span>
+        </dd>
+        <dt><span data-translate="uniConnectApp.student_user.graduateYear">Graduate Year</span></dt>
+        <dd>
+            <span>{{vm.student_user.graduateYear}}</span>
+        </dd>
+        <dt><span data-translate="uniConnectApp.student_user.currentSemester">Current Semester</span></dt>
+        <dd>
+            <span>{{vm.student_user.currentSemester}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="student-user-detail.edit({id:vm.student_user.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>
