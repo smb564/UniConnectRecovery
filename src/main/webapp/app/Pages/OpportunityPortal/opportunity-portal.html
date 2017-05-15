@@ -1,3 +1,42 @@
 <div>
-    {{vm.hello}}
+    <form>
+        <div class="form-group">
+            <ui-select multiple ng-model="vm.OpportunityFilter.tags" theme="bootstrap"  close-on-select="false" title="Choose Related Fields">
+                <ui-select-match placeholder="Select Interests">{{$item}}</ui-select-match>
+                <ui-select-choices repeat="interest in vm.interests | filter:$select.search">
+                    {{interest}}
+                </ui-select-choices>
+            </ui-select>
+        </div>
+
+        <div class="form-inline">
+            <label for="targetSem">Target Semester and Department:</label>
+            <select class="form-control" id="targetSem" name="id"
+                    ng-model="vm.targetSem"
+                    ng-options="sem for sem in vm.semesters"></select>
+
+            <select class="form-control" id="targetDep" name="id"
+                    ng-model="vm.targetDep"
+                    ng-options="dep for dep in vm.departments"></select>
+            <button type="button" ng-click="vm.addTarget()" class="btn btn-primary btn-sm">Add</button>
+        </div>
+
+        <hr />
+
+        <div ng-repeat="target in vm.OpportunityFilter.targets track by $index">
+            <p><b>Semester:</b> {{target[0]}} <b>Department:</b>{{target[1]}} <button type="button" class="btn btn-danger btn-sm" ng-click="vm.removeTarget($index)">-</button></p>
+        </div>
+    </form>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-3">
+            <button type="button" class="btn btn-default btn-block">Filter</button>
+        </div>
+        <div class="col-md-3">
+            <button type="button" class="btn btn-danger btn-block">Clear Filter</button>
+        </div>
+    </div>
+
+    <hr>
 </div>
