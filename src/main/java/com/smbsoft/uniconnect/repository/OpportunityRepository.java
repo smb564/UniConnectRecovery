@@ -16,11 +16,11 @@ import java.util.List;
 public interface OpportunityRepository extends MongoRepository<Opportunity,String> {
     public Page<Opportunity> findAllByOwnerLogin(Pageable pageable, String ownerLogin);
 
-    public List<Opportunity> findAllByTagsContainsAndTargetsContainingAndStartDateAndEndDateBetween(List<String> tags, List<List<String>> targets, LocalDate date);
+    public List<Opportunity> findAllByTagsContainsAndTargetsContainingAndStartDateLessThanEqualAndEndDateGreaterThanEqual(List<String> tags, List<List<String>> targets, LocalDate start, LocalDate end);
 
-    public List<Opportunity> findAllByTargetsContainingAndStartDateAndEndDateBetween(List<List<String>> targets, LocalDate date);
+    public List<Opportunity> findAllByTargetsContainingAndStartDateLessThanEqualAndEndDateGreaterThanEqual(List<List<String>> targets, LocalDate start, LocalDate end);
 
-    public List<Opportunity> findAllByTagsContainsAndStartDateAndEndDateBetween(List<String> tags, LocalDate date);
+    public List<Opportunity> findAllByTagsContainsAndStartDateLessThanEqualAndEndDateGreaterThanEqual(List<String> tags, LocalDate start, LocalDate end);
 
-    public List<Opportunity> findAllByStartDateAndEndDateBetween(LocalDate date);
+    public List<Opportunity> findAllByStartDateLessThanEqualAndEndDateGreaterThanEqual(LocalDate start, LocalDate end);
 }

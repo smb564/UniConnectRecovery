@@ -2,6 +2,7 @@ package com.smbsoft.uniconnect.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.smbsoft.uniconnect.domain.OpportunityQuestion;
+import com.smbsoft.uniconnect.security.SecurityUtils;
 import com.smbsoft.uniconnect.service.OpportunityQuestionService;
 import com.smbsoft.uniconnect.web.rest.util.HeaderUtil;
 import com.smbsoft.uniconnect.web.rest.util.PaginationUtil;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +35,7 @@ public class OpportunityQuestionResource {
     private final Logger log = LoggerFactory.getLogger(OpportunityQuestionResource.class);
 
     private static final String ENTITY_NAME = "opportunityQuestion";
-        
+
     private final OpportunityQuestionService opportunityQuestionService;
 
     public OpportunityQuestionResource(OpportunityQuestionService opportunityQuestionService) {
@@ -53,6 +56,8 @@ public class OpportunityQuestionResource {
         if (opportunityQuestion.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new opportunityQuestion cannot already have an ID")).body(null);
         }
+
+        opportunityQuestion = opportunityQuestion.date(LocalDate.now()).ownerLogin(SecurityUtils.getCurrentUserLogin()).votes(0);
         OpportunityQuestion result = opportunityQuestionService.save(opportunityQuestion);
         return ResponseEntity.created(new URI("/api/opportunity-questions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -124,4 +129,42 @@ public class OpportunityQuestionResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    /**
+     * GET  /opportunity-questions/{id} : get all the opportunityQuestions with opportunity id.
+     *
+     * @param id the id of the post
+     * @return the ResponseEntity with status 200 (OK) and the list of opportunityQuestions in body
+     */
+    @GetMapping("/opportunity/{id}/questions")
+    @Timed
+    public ResponseEntity<List<OpportunityQuestion>> getAllOpportunityQuestions(@PathVariable String id) {
+        log.debug("REST request to get OpportunityQuestions for Opportunity {}", id);
+
+        List<OpportunityQuestion> result = opportunityQuestionService.findForOpportunity(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(result));
+    }
+
+
+    /**
+     * POST  /opportunity-questions : Create a new opportunityQuestion.
+     *
+     * @param opportunityQuestion the opportunityQuestion to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new opportunityQuestion, or with status 400 (Bad Request) if the opportunityQuestion has already an ID
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @PostMapping("/opportunity/{id}/questions")
+    @Timed
+    public ResponseEntity<OpportunityQuestion> createOpportunityQuestionToOpportunity(@Valid @RequestBody OpportunityQuestion opportunityQuestion, @PathVariable String id) throws URISyntaxException {
+        log.debug("REST request to save OpportunityQuestion to question: {}", opportunityQuestion);
+        if (opportunityQuestion.getId() != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new opportunityQuestion cannot already have an ID")).body(null);
+        }
+
+        opportunityQuestion = opportunityQuestion.date(LocalDate.now()).ownerLogin(SecurityUtils.getCurrentUserLogin()).votes(0);
+
+        OpportunityQuestion result = opportunityQuestionService.addQuestion(opportunityQuestion, id);
+        return ResponseEntity.created(new URI("/api/opportunity-questions/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
 }

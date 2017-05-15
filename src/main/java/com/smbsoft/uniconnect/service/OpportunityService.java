@@ -100,7 +100,7 @@ public class OpportunityService {
         // First check whether no filter, then send all
         if (opportunityFilter.getTags().isEmpty() && opportunityFilter.getTargets().isEmpty()){
             // Empty return all
-            return opportunityRepository.findAllByStartDateAndEndDateBetween(LocalDate.now());
+            return opportunityRepository.findAllByStartDateLessThanEqualAndEndDateGreaterThanEqual(LocalDate.now(), LocalDate.now());
         }
 
         // Else filter based on the opportunityFilter
@@ -112,7 +112,7 @@ public class OpportunityService {
             for(List<String> target : opportunityFilter.getTargets()){
                 List<List<String>> temp = new ArrayList<>();
                 temp.add(target);
-                List<Opportunity> tempResult = opportunityRepository.findAllByTargetsContainingAndStartDateAndEndDateBetween(temp, LocalDate.now());
+                List<Opportunity> tempResult = opportunityRepository.findAllByTargetsContainingAndStartDateLessThanEqualAndEndDateGreaterThanEqual(temp, LocalDate.now(), LocalDate.now());
                 log.debug(tempResult.size() + "");
                 for(Opportunity opportunity : tempResult){
                     results.add(opportunity);
@@ -129,13 +129,13 @@ public class OpportunityService {
 
         // if no targets, filter only by tags
         if (opportunityFilter.getTargets().isEmpty()){
-            return opportunityRepository.findAllByTagsContainsAndStartDateAndEndDateBetween(opportunityFilter.getTags(), LocalDate.now());
+            return opportunityRepository.findAllByTagsContainsAndStartDateLessThanEqualAndEndDateGreaterThanEqual(opportunityFilter.getTags(), LocalDate.now(), LocalDate.now());
         }
 
         for(List<String> target : opportunityFilter.getTargets()){
             List<List<String>> temp = new ArrayList<>();
             temp.add(target);
-            List<Opportunity> tempResult = opportunityRepository.findAllByTagsContainsAndTargetsContainingAndStartDateAndEndDateBetween(opportunityFilter.getTags() , temp, LocalDate.now());
+            List<Opportunity> tempResult = opportunityRepository.findAllByTagsContainsAndTargetsContainingAndStartDateLessThanEqualAndEndDateGreaterThanEqual(opportunityFilter.getTags() , temp, LocalDate.now(), LocalDate.now());
             log.debug(tempResult.size() + "");
             for(Opportunity opportunity : tempResult){
                 results.add(opportunity);

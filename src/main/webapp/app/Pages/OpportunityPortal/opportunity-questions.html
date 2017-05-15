@@ -1,0 +1,73 @@
+<div>
+    {{vm.opportunity}}
+
+    <div class="jumbotron">
+        <h1 class="text-center">{{vm.opportunity.title}}</h1>
+        <hr>
+        <p ng-bind-html="vm.opportunity.description" linkify></p>
+        <hr>
+        <span ng-repeat="tag in vm.opportunity.tags">
+                <span class="label label-default" >{{tag}}</span>
+        </span>
+    </div>
+
+    <div class="panel panel-default" ng-repeat="question in vm.questions">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-8">
+                    {{question.description}}
+                </div>
+                <div class="col-md-3">
+                    By <b><u>{{question.ownerLogin}}</u></b> on {{question.date}} <b>Votes : {{question.votes}}</b>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" ng-click="vm.upVote(question)" class="btn btn-sm btn-info"><span class="glyphicon-upload glyphicon"></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body" ng-show="question.answer">
+            {{question.answer}}
+        </div>
+
+        <div class="panel-body" ng-show="!question.answer && vm.account.login===vm.opportunity.ownerLogin">
+            <button type="button" ng-click="vm.giveAnswer(question)" class="btn btn-sm btn-primary"><span class="glyphicon-comment glyphicon"></span>&nbsp&nbspAnswer</button>
+        </div>
+    </div>
+
+
+    {{vm.questions}}
+
+    <div class="row">
+        <div class="col-md-10">
+            <form name="editForm" role="form" novalidate show-validation>
+                <div class="form-group">
+                    <label class="control-label" for="field_text">Add Question</label>
+                    <textarea type="text" class="form-control" name="text" id="field_text"
+                              ng-model="vm.questionText"
+                              required ng-minlength="5" ng-maxlength="150" rows=3></textarea>
+                    <div ng-show="editForm.text.$invalid">
+                        <p class="help-block"
+                           ng-show="editForm.text.$error.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.text.$error.minlength" translate-value-min="5">
+                            This field is required to be at least 5 characters.
+                        </p>
+                        <p class="help-block"
+                           ng-show="editForm.text.$error.maxlength">
+                            This field cannot be longer than 150 characters.
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <br>
+            <br>
+            <button ng-click="vm.saveQuestion()" type="button" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-block btn-primary">
+                <span class="glyphicon glyphicon-plus"></span>&nbsp;<span>Add Comment</span>
+            </button>
+        </div>
+    </div>
+</div>

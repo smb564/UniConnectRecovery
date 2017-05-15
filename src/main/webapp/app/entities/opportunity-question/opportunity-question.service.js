@@ -36,6 +36,20 @@
                     copy.date = DateUtils.convertLocalDateToServer(copy.date);
                     return angular.toJson(copy);
                 }
+            },
+            'saveModule' : {
+                method : "POST",
+                url : 'api/opportunity/:id/questions',
+                transformRequest: function (data) {
+                    var copy = angular.copy(data);
+                    copy.date = DateUtils.convertLocalDateToServer(copy.date);
+                    return angular.toJson(copy);
+                }
+            },
+            'getModule' : {
+                method : 'GET',
+                url : 'api/opportunity/:id/questions',
+                isArray: true
             }
         });
     }
