@@ -5,9 +5,9 @@
         .module("uniConnectApp")
         .controller('OpportunityQuestionsController', OpportunityQuestionsController);
 
-    OpportunityQuestionsController.$inject = ['entity', 'OpportunityQuestion', 'Principal'];
+    OpportunityQuestionsController.$inject = ['entity', 'OpportunityQuestion', 'Principal', 'User'];
 
-    function OpportunityQuestionsController(entity, OpportunityQuestion, Principal){
+    function OpportunityQuestionsController(entity, OpportunityQuestion, Principal, User){
         var vm = this;
 
         vm.opportunity = entity;
@@ -55,6 +55,15 @@
             });
 
             vm.questionText = null;
+
+            // Send notification to the owner of the post
+            var userNotification = {
+                'notification' : "Your opportunity post at <a href='"+window.location+"'>this</a> got a new question!",
+                'viewed' : false
+            };
+
+            User.sendNotification({login : vm.opportunity.ownerLogin}, userNotification);
+
         }
 
         function loadQuestions(){
@@ -70,6 +79,14 @@
             if (answer){
                 question.answer = answer;
                 OpportunityQuestion.update(question);
+
+                // Send notification to question owner
+                var notification = {
+                    'notification' : "Your question at <a href='"+window.location+"'>this</a> has been answered!",
+                    'viewed' : false
+                };
+
+                User.addNotification({login : question.ownerLogin}, notification);
             }
         }
 

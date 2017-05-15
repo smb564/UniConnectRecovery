@@ -48,7 +48,7 @@
             if (vm.opportunity.id !== null) {
                 Opportunity.update(vm.opportunity, onSaveSuccess, onSaveError);
             } else {
-                Opportunity.save(vm.opportunity, onSaveSuccess, onSaveError);
+                Opportunity.save(vm.opportunity, sendNotification, onSaveError);
             }
         }
 
@@ -79,6 +79,21 @@
 
         function removeTarget(index){
             vm.opportunity.targets.splice(index, 1);
+        }
+
+        function sendNotification(result){
+            // Add notifications
+            for(var i = 0; i < vm.opportunity.targets.length ; i++){
+                Notification.save(
+                    {
+                        "semester" : vm.opportunity.targets[i][0],
+                        "department" : vm.opportunity.targets[i][1],
+                        "notification" : "A new module named " + result.title + " added. Go to <a href='localhost:8080/#/oportal/" + result.id + "'>this</a>"
+                    }
+                )
+            }
+
+            onSaveSuccess(result);
         }
 
     }
