@@ -1,37 +1,53 @@
 <div>
+    <h1 class="text-center">Opportunities Portal</h1>
+    <hr>
     <form>
-        <div class="form-group">
-            <ui-select multiple ng-model="vm.opportunityFilter.tags" theme="bootstrap"  close-on-select="false" title="Choose Related Fields">
-                <ui-select-match placeholder="Select Interests">{{$item}}</ui-select-match>
-                <ui-select-choices repeat="interest in vm.interests | filter:$select.search">
-                    {{interest}}
-                </ui-select-choices>
-            </ui-select>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="form-group">
+                    <ui-select multiple ng-model="vm.opportunityFilter.tags" theme="bootstrap"  close-on-select="false" title="Choose Related Fields">
+                        <ui-select-match placeholder="Select Interests">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="interest in vm.interests | filter:$select.search">
+                            {{interest}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
         </div>
 
         <hr>
-        <div class="form-inline">
-            <label for="targetSem">Target Semester and Department:</label>
-            <select class="form-control" id="targetSem" name="id"
-                    ng-model="vm.targetSem"
-                    ng-options="sem for sem in vm.semesters"></select>
 
-            <select class="form-control" id="targetDep" name="id"
-                    ng-model="vm.targetDep"
-                    ng-options="dep for dep in vm.departments"></select>
-            <button type="button" ng-click="vm.addTarget()" class="btn btn-primary btn-sm">Add</button>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="form-inline">
+                    <label for="targetSem">Target Semester and Department:</label>
+                    <select class="form-control" id="targetSem" name="id"
+                            ng-model="vm.targetSem"
+                            ng-options="sem for sem in vm.semesters"></select>
+
+                    <select class="form-control" id="targetDep" name="id"
+                            ng-model="vm.targetDep"
+                            ng-options="dep for dep in vm.departments"></select>
+                    <button type="button" ng-click="vm.addTarget()" class="btn btn-primary btn-sm">Add</button>
+                </div>
+            </div>
         </div>
+
 
         <hr ng-show="vm.opportunityFilter.targets.length">
 
-        <div ng-repeat="target in vm.opportunityFilter.targets track by $index">
-            <p><b>Semester:</b> {{target[0]}} <b>Department:</b>{{target[1]}} <button type="button" class="btn btn-danger btn-sm" ng-click="vm.removeTarget($index)">-</button></p>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div ng-repeat="target in vm.opportunityFilter.targets track by $index">
+                    <p><b>Semester:</b> {{target[0]}} <b>Department:</b>{{target[1]}} <button type="button" class="btn btn-danger btn-sm" ng-click="vm.removeTarget($index)">-</button></p>
+                </div>
+            </div>
         </div>
     </form>
 
     <hr>
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-md-offset-3">
             <button type="button" class="btn btn-default btn-block" ng-click="vm.getOpportunities()">Filter</button>
         </div>
         <div class="col-md-3">
