@@ -39,6 +39,11 @@
                     copy.endDate = DateUtils.convertLocalDateToServer(copy.endDate);
                     return angular.toJson(copy);
                 }
+            },
+            'getFilter' : {
+                method : 'POST',
+                url : 'api/opportunities/filter',
+                isArray : true
             }
         });
     }

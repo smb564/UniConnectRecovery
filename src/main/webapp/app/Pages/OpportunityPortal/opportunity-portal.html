@@ -1,7 +1,7 @@
 <div>
     <form>
         <div class="form-group">
-            <ui-select multiple ng-model="vm.OpportunityFilter.tags" theme="bootstrap"  close-on-select="false" title="Choose Related Fields">
+            <ui-select multiple ng-model="vm.opportunityFilter.tags" theme="bootstrap"  close-on-select="false" title="Choose Related Fields">
                 <ui-select-match placeholder="Select Interests">{{$item}}</ui-select-match>
                 <ui-select-choices repeat="interest in vm.interests | filter:$select.search">
                     {{interest}}
@@ -23,7 +23,7 @@
 
         <hr />
 
-        <div ng-repeat="target in vm.OpportunityFilter.targets track by $index">
+        <div ng-repeat="target in vm.opportunityFilter.targets track by $index">
             <p><b>Semester:</b> {{target[0]}} <b>Department:</b>{{target[1]}} <button type="button" class="btn btn-danger btn-sm" ng-click="vm.removeTarget($index)">-</button></p>
         </div>
     </form>
@@ -31,12 +31,14 @@
     <hr>
     <div class="row">
         <div class="col-md-3">
-            <button type="button" class="btn btn-default btn-block">Filter</button>
+            <button type="button" class="btn btn-default btn-block" ng-click="vm.getOpportunities()">Filter</button>
         </div>
         <div class="col-md-3">
-            <button type="button" class="btn btn-danger btn-block">Clear Filter</button>
+            <button type="button" class="btn btn-danger btn-block" ng-click="vm.clearFilters()">Clear Filter</button>
         </div>
     </div>
 
     <hr>
+
+    {{vm.opportunities}}
 </div>

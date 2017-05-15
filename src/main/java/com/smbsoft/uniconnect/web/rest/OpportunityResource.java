@@ -2,6 +2,7 @@ package com.smbsoft.uniconnect.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.smbsoft.uniconnect.domain.Opportunity;
+import com.smbsoft.uniconnect.domain.OpportunityFilter;
 import com.smbsoft.uniconnect.security.AuthoritiesConstants;
 import com.smbsoft.uniconnect.security.SecurityUtils;
 import com.smbsoft.uniconnect.service.OpportunityService;
@@ -130,6 +131,20 @@ public class OpportunityResource {
         log.debug("REST request to delete Opportunity : {}", id);
         opportunityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    /**
+     * GET  /opportunities/filter : get filtered opportunities
+     *
+     * @param opportunityFilter filter to be used for filtering
+     * @return the ResponseEntity with status 200 (OK) and with body the opportunitt List, or with status 404 (Not Found)
+     */
+    @PostMapping("/opportunities/filter")
+    @Timed
+    public ResponseEntity<List<Opportunity>> getOpportunitiesFilter(@Valid @RequestBody OpportunityFilter opportunityFilter) {
+        log.debug("REST request to get Opportunity for filter : {}", opportunityFilter);
+        List<Opportunity> results = opportunityService.findForFilter(opportunityFilter);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(results));
     }
 
 }

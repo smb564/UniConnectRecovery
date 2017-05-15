@@ -1,6 +1,7 @@
 package com.smbsoft.uniconnect.service;
 
 import com.smbsoft.uniconnect.domain.Opportunity;
+import com.smbsoft.uniconnect.domain.OpportunityFilter;
 import com.smbsoft.uniconnect.repository.OpportunityRepository;
 import com.smbsoft.uniconnect.security.AuthoritiesConstants;
 import com.smbsoft.uniconnect.security.SecurityUtils;
@@ -8,10 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.expression.spel.ast.OpOr;
 import org.springframework.stereotype.Service;
 
 import java.security.Security;
-import java.util.List;
+import java.util.*;
 
 /**
  * Service Implementation for managing Opportunity.
@@ -91,4 +93,62 @@ public class OpportunityService {
             return opportunityRepository.findAllByOwnerLogin(pageable, SecurityUtils.getCurrentUserLogin());
         }
     }
+
+    public List<Opportunity> findForFilter(OpportunityFilter opportunityFilter) {
+        // Need to filter based on the requirements
+        // First check whether no filter, then send all
+        if (opportunityFilter.getTags().isEmpty() && opportunityFilter.getTargets().isEmpty()){
+            // Empty return all
+            return opportunityRepository.findAll();
+        }
+
+        // Else filter based on the opportunityFilter
+        //HashSet to avoid duplicate entries
+        Set<Opportunity> results = new HashSet<>();
+
+        // if no tags
+        if (opportunityFilter.getTags().isEmpty()){
+            for(List<String> target : opportunityFilter.getTargets()){
+                List<List<String>> temp = new ArrayList<>();
+                temp.add(target);
+                List<Opportunity> tempResult = opportunityRepository.findAllByTargetsContaining(temp);
+                log.debug(tempResult.size() + "");
+                for(Opportunity opportunity : tempResult){
+                    results.add(opportunity);
+                }
+            }
+
+            // Add the content of the hash set to a list
+            List<Opportunity> output = new ArrayList<>();
+
+            for(Opportunity o : results){
+                output.add(o);
+            }
+        }
+
+        // if no targets, filter only by tags
+        if (opportunityFilter.getTargets().isEmpty()){
+            return opportunityRepository.findAllByTagsContains(opportunityFilter.getTags());
+        }
+
+        for(List<String> target : opportunityFilter.getTargets()){
+            List<List<String>> temp = new ArrayList<>();
+            temp.add(target);
+            List<Opportunity> tempResult = opportunityRepository.findAllByTagsContainsAndTargetsContaining(opportunityFilter.getTags() , temp);
+            log.debug(tempResult.size() + "");
+            for(Opportunity opportunity : tempResult){
+                results.add(opportunity);
+            }
+        }
+
+        // Add the content of the hash set to a list
+        List<Opportunity> output = new ArrayList<>();
+
+        for(Opportunity o : results){
+            output.add(o);
+        }
+
+        return output;
+    }
+
 }
