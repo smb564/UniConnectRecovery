@@ -19,6 +19,9 @@
             'tags' : []
         };
 
+        // get all the opportunities first
+        getOpportunities();
+
         // methods used to manipulate targets
         vm.addTarget = addTarget;
         vm.removeTarget = removeTarget;
