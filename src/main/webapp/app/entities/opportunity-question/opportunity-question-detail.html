@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Opportunity Question</span> {{vm.opportunityQuestion.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Description</span></dt>
+        <dd>
+            <span>{{vm.opportunityQuestion.description}}</span>
+        </dd>
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{vm.opportunityQuestion.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Votes</span></dt>
+        <dd>
+            <span>{{vm.opportunityQuestion.votes}}</span>
+        </dd>
+        <dt><span>Owner Login</span></dt>
+        <dd>
+            <span>{{vm.opportunityQuestion.ownerLogin}}</span>
+        </dd>
+        <dt><span>Answer</span></dt>
+        <dd>
+            <span>{{vm.opportunityQuestion.answer}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="opportunity-question-detail.edit({id:vm.opportunityQuestion.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down"> Edit</span>
+    </button>
+</div>

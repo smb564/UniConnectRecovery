@@ -2,6 +2,7 @@ package com.smbsoft.uniconnect.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.smbsoft.uniconnect.domain.Opportunity;
+import com.smbsoft.uniconnect.security.AuthoritiesConstants;
 import com.smbsoft.uniconnect.security.SecurityUtils;
 import com.smbsoft.uniconnect.service.OpportunityService;
 import com.smbsoft.uniconnect.web.rest.util.HeaderUtil;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -96,7 +98,7 @@ public class OpportunityResource {
     public ResponseEntity<List<Opportunity>> getAllOpportunities(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Opportunities");
 
-        // Send only the opportunities posed for company users , admins send all
+        // Send only the opportunities posed for company users , admins, student users send all
         Page<Opportunity> page = opportunityService.findAllForUser(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/opportunities");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);

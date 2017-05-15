@@ -85,6 +85,9 @@ public class OpportunityService {
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
             return opportunityRepository.findAll(pageable);
         }else{
+            if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.USER)){
+                return opportunityRepository.findAll(pageable);
+            }
             return opportunityRepository.findAllByOwnerLogin(pageable, SecurityUtils.getCurrentUserLogin());
         }
     }
