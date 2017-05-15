@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,9 +16,11 @@ import java.util.List;
 public interface OpportunityRepository extends MongoRepository<Opportunity,String> {
     public Page<Opportunity> findAllByOwnerLogin(Pageable pageable, String ownerLogin);
 
-    public List<Opportunity> findAllByTagsContainsAndTargetsContaining(List<String> tags, List<List<String>> targets);
+    public List<Opportunity> findAllByTagsContainsAndTargetsContainingAndStartDateAndEndDateBetween(List<String> tags, List<List<String>> targets, LocalDate date);
 
-    public List<Opportunity> findAllByTargetsContaining(List<List<String>> targets);
+    public List<Opportunity> findAllByTargetsContainingAndStartDateAndEndDateBetween(List<List<String>> targets, LocalDate date);
 
-    public List<Opportunity> findAllByTagsContains(List<String> tags);
+    public List<Opportunity> findAllByTagsContainsAndStartDateAndEndDateBetween(List<String> tags, LocalDate date);
+
+    public List<Opportunity> findAllByStartDateAndEndDateBetween(LocalDate date);
 }
