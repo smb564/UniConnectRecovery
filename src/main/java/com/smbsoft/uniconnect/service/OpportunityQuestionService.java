@@ -150,4 +150,14 @@ public class OpportunityQuestionService {
         opportunityQuestionRepository.save(oq);
         log.debug("Found a new member, so upvote");
     }
+
+    public void deleteFromOpportunity(String questionId, String opportunityId) {
+        // Delete the pointer of Opportunity
+        Opportunity opportunity = opportunityService.findOne(opportunityId);
+        opportunity.getQuestions().remove(questionId);
+        opportunityService.save(opportunity);
+
+        // now delete the question as normal
+        delete(questionId);
+    }
 }

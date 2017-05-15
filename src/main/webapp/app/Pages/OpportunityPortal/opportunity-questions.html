@@ -20,6 +20,9 @@
                 </div>
                 <div class="col-md-1">
                     <button type="button" ng-click="vm.upVote(question.id)" class="btn btn-sm btn-info"><span class="glyphicon-upload glyphicon"></span></button>
+                    <button type="button" ng-show="question.ownerLogin===vm.account.login||vm.opportunity.ownerLogin===vm.account.login||vm.isAdmin" ng-click="vm.deleteQuestion(question.id)" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             </div>
         </div>

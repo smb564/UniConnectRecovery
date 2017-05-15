@@ -54,6 +54,10 @@
             'upVote' : {
                 method : 'GET',
                 url : 'api/questions/:qId/user/:userId/upvote'
+            },
+            'deleteOpportunity' : {
+                method : 'DELETE',
+                url : 'api/questions/:qId/opportunity/:oId'
             }
         });
     }

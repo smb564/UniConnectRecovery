@@ -176,4 +176,12 @@ public class OpportunityQuestionResource {
 
         opportunityQuestionService.upVote(questionId, userId);
     }
+
+    @DeleteMapping("/questions/{questionId}/opportunity/{opportunityId}")
+    @Timed
+    public ResponseEntity<Void> deleteQuestionFromOpportunity(@PathVariable String questionId, @PathVariable String opportunityId) {
+        log.debug("REST request to delete OpportunityQuestion from Opportunity: {} {}", questionId, opportunityId);
+        opportunityQuestionService.deleteFromOpportunity(questionId, opportunityId);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, "")).build();
+    }
 }

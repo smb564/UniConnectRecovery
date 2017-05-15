@@ -17,6 +17,7 @@
 
         vm.giveAnswer = giveAnswer;
         vm.upVote = upVote;
+        vm.deleteQuestion = deleteQuestion;
 
 
         loadQuestions();
@@ -74,6 +75,12 @@
 
         function upVote(questionId){
             OpportunityQuestion.upVote({qId : questionId, userId : vm.account.login}, loadQuestions);
+        }
+
+        function deleteQuestion(qId){
+            if (window.confirm("Are you sure want to delete?")){
+                OpportunityQuestion.deleteOpportunity({qId : qId, oId : vm.opportunity.id}, loadQuestions);
+            }
         }
 
     }
