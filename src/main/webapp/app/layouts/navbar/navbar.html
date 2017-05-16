@@ -34,7 +34,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu" uib-dropdown-menu>
-                        <li ui-sref-active="active">
+                        <li ui-sref-active="active" has-any-authority="ROLE_USER, ROLE_ADMIN">
                             <a ui-sref="forum-system" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                 <span >Q&A Forum</span>
@@ -46,7 +46,7 @@
                                 <span >Opportunities Portal</span>
                             </a>
                         </li>
-                        <li ui-sref-active="active">
+                        <li ui-sref-active="active" has-any-authority="ROLE_USER, ROLE_ADMIN">
                             <a ui-sref="module-pages-system" ng-click="vm.collapseNavbar()">
                                 <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                 <span >Module Pages</span>

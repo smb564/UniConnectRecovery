@@ -1,26 +1,111 @@
 <div ng-cloak>
+    <h1 class="text-center">Welcome to UniConnect!</h1>
 
-    <div ng-hide="vm.account">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Welcome to UniConnect</h1>
+    <hr>
+
+    <div class="row" ng-hide="vm.account">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="http://www.wintellect.com/devcenter/wp-content/uploads/2015/09/share.jpg" alt="...">
+                <div class="caption">
+                    <h3>Sharing</h3>
+                    <p>UniConnect is a system that is based on the thing you love the most! that is Sharing!</p>
+                </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <ul>
-                    <li>Students can share!</li>
-                    <li>Companies can recruit</li>
-                    <li>Everything is about sharing</li>
-                </ul>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="https://oracle-base.com/blog/wp-content/uploads/2016/01/Questions.jpg" alt="...">
+                <div class="caption">
+                    <h3>Raise Questions!</h3>
+                    <p>Students can share their experiences with other students and can ask questions</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="http://cdn2.hubspot.net/hub/106409/file-733757959-jpg/images/how-to-recruit-top-performing-sales-people.jpg" alt="...">
+                <div class="caption">
+                    <h3>Recruit People!</h3>
+                    <p>UniConnect helps you to find the best talent for the job.</p>
+                </div>
             </div>
         </div>
     </div>
 
+    <div class="row" ng-show="vm.account" has-authority="ROLE_USER">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="http://hjhspantherprint.com/wp-content/uploads/2015/12/Subjects.png" alt="...">
+                <div class="caption">
+                    <h3>Module Pages</h3>
+                    <p>UniConnect offers a page for each module. You can easily share your resources related to a module in the specific page.</p>
+                    <p><a ui-sref="module-pages-system" href="#" class="btn btn-primary" role="button">Go</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="http://www.frontspin.com/wp-content/uploads/2015/02/237517-1nVFwk1403586589.jpg" alt="...">
+                <div class="caption">
+                    <h3>Forum</h3>
+                    <p>This is the place you can raise any question you have, the answers will be more relevant than the other forum sites out there.</p>
+                    <p><a ui-sref="forum-system" href="#" class="btn btn-primary" role="button">Go</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="https://www.pumhs.edu.pk/images/jobs.jpg" alt="...">
+                <div class="caption">
+                    <h3>Opportunity Portal</h3>
+                    <p>This is where students can find research, part time work and job opportunities.</p>
+                    <p><a ui-sref="opportunity-portal" href="#" class="btn btn-primary" role="button">Go</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row" ng-show="vm.account" has-authority="ROLE_COMPANY">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="http://www.printwand.com/blog/media/2011/11/Target-Audience.jpg" alt="...">
+                <div class="caption">
+                    <h3>Manage Opportunities</h3>
+                    <p>UniConnect offers you to post you company opportunities for a more specific target audience. Try now!</p>
+                    <p><a ui-sref="opportunity" href="#" class="btn btn-primary" role="button">Go</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="https://www.pumhs.edu.pk/images/jobs.jpg" alt="...">
+                <div class="caption">
+                    <h3>Opportunity Portal</h3>
+                    <p>This shows all the opportunities that are available in the system. Students will be shown the way that is displayed here.</p>
+                    <p><a ui-sref="opportunity-portal" href="#" class="btn btn-primary" role="button">Go</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" has-authority="ROLE_COMPANY">
+            <ul class="list-group">
+                <li class="list-group-item active">Notifications</li>
+                <li class="list-group-item" ng-repeat="notification in vm.account.notifications" ng-hide="notification.viewed">
+                    <p ng-bind-html="notification.notification"></p>
+                    <span class="label label-info">New</span>
+                    <a type="button" ng-click="vm.disposeUserNotification($index)" class="close pull-right" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
+
+    <div class="row" ng-show="vm.account">
+        <div class="col-md-6" has-any-authority="ROLE_USER, ROLE_ADMIN">
             <ul class="list-group">
                 <li class="list-group-item active">Notifications</li>
                 <li class="list-group-item" ng-repeat="notification in vm.account.notifications" ng-hide="notification.viewed">
@@ -32,7 +117,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-6" ng-show="vm.student">
+        <div class="col-md-6" ng-show="vm.student" has-authority="ROLE_USER">
             <ul class="list-group">
                 <li class="list-group-item active">Global Notifications</li>
                 <li class="list-group-item" ng-repeat="notification in vm.notifications" ng-hide="notification.viewed">

@@ -104,7 +104,6 @@ public class OpportunityQuestionResourceIntTest {
         opportunityQuestion = createEntity();
     }
 
-    @Test
     public void createOpportunityQuestion() throws Exception {
         int databaseSizeBeforeCreate = opportunityQuestionRepository.findAll().size();
 

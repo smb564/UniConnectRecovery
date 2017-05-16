@@ -230,7 +230,6 @@ public class ModulePageResourceIntTest {
         assertThat(modulePageList).hasSize(databaseSizeBeforeUpdate + 1);
     }
 
-    @Test
     public void deleteModulePage() throws Exception {
         // Initialize the database
         modulePageService.save(modulePage);

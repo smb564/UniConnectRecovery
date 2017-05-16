@@ -13,7 +13,7 @@
                 parent: 'entity',
                 url: '/modules',
                 data: {
-                    authorities: ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_COMPANY'],
+                    authorities: ['ROLE_ADMIN', 'ROLE_USER'],
                     pageTitle: 'Modules'
                 },
                 views:{
@@ -28,7 +28,7 @@
                 parent: 'module-pages-system',
                 url: '/{id}',
                 data: {
-                    authorities: ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_COMPANY'],
+                    authorities: ['ROLE_ADMIN', 'ROLE_USER'],
                     pageTitle: 'Modules'
                 },
                 views:{
@@ -50,7 +50,7 @@
                 parent: 'module-thread',
                 url : '/{postId}',
                 data: {
-                    authorities: ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_COMPANY'],
+                    authorities: ['ROLE_ADMIN', 'ROLE_USER'],
                     pageTitle: 'Comments'
                 },
                 views:{

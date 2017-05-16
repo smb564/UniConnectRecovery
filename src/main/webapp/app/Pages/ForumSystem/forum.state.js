@@ -13,7 +13,7 @@
                 parent : 'entity',
                 url : '/forums',
                 data: {
-                    authorities: ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_COMPANY'],
+                    authorities: ['ROLE_ADMIN', 'ROLE_USER'],
                     pageTitle: 'Forum'
                 },
                 views:{
@@ -28,7 +28,7 @@
                 parent: 'forum-system',
                 url: '/{id}',
                 data: {
-                    authorities: ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_COMPANY'],
+                    authorities: ['ROLE_ADMIN', 'ROLE_USER'],
                     pageTitle: 'Forum Posts'
                 },
                 views:{
@@ -48,7 +48,7 @@
                 parent: 'forum-thread',
                 url : '/{postId}',
                 data: {
-                    authorities: ['ROLE_ADMIN', 'ROLE_USER', 'ROLE_COMPANY'],
+                    authorities: ['ROLE_ADMIN', 'ROLE_USER'],
                     pageTitle: 'Comments'
                 },
                 views:{

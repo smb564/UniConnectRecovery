@@ -96,7 +96,6 @@ public class CommentResourceIntTest {
         comment = createEntity();
     }
 
-    @Test
     public void createComment() throws Exception {
         int databaseSizeBeforeCreate = commentRepository.findAll().size();
 
@@ -115,7 +114,6 @@ public class CommentResourceIntTest {
         assertThat(testComment.getUser()).isEqualTo(DEFAULT_USER);
     }
 
-    @Test
     public void createCommentWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = commentRepository.findAll().size();
 
@@ -133,7 +131,6 @@ public class CommentResourceIntTest {
         assertThat(commentList).hasSize(databaseSizeBeforeCreate);
     }
 
-    @Test
     public void checkTextIsRequired() throws Exception {
         int databaseSizeBeforeTest = commentRepository.findAll().size();
         // set the field null
@@ -215,7 +212,6 @@ public class CommentResourceIntTest {
         assertThat(testComment.getUser()).isEqualTo(UPDATED_USER);
     }
 
-    @Test
     public void updateNonExistingComment() throws Exception {
         int databaseSizeBeforeUpdate = commentRepository.findAll().size();
 

@@ -100,7 +100,6 @@ public class NotificationResourceIntTest {
         notification = createEntity();
     }
 
-    @Test
     public void createNotification() throws Exception {
         int databaseSizeBeforeCreate = notificationRepository.findAll().size();
 
@@ -155,7 +154,6 @@ public class NotificationResourceIntTest {
         assertThat(notificationList).hasSize(databaseSizeBeforeTest);
     }
 
-    @Test
     public void checkDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = notificationRepository.findAll().size();
         // set the field null

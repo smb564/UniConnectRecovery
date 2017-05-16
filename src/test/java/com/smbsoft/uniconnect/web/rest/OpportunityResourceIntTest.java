@@ -104,7 +104,6 @@ public class OpportunityResourceIntTest {
         opportunity = createEntity();
     }
 
-    @Test
     public void createOpportunity() throws Exception {
         int databaseSizeBeforeCreate = opportunityRepository.findAll().size();
 
@@ -211,7 +210,6 @@ public class OpportunityResourceIntTest {
         assertThat(opportunityList).hasSize(databaseSizeBeforeTest);
     }
 
-    @Test
     public void getAllOpportunities() throws Exception {
         // Initialize the database
         opportunityRepository.save(opportunity);
