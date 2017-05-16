@@ -62,7 +62,7 @@
                     {
                         "semester" : vm.modulePage.targets[i][0],
                         "department" : vm.modulePage.targets[i][1],
-                        "notification" : "A new module named " + result.title + " added. Go to <a href='localhost:8080/#/modules/" + result.id + "'>this</a>"
+                        "notification" : "A new module named " + result.title + " added. Go to <a href='http://localhost:8080/#/modules/" + result.id + "'>this</a>"
                     }
                 )
             }

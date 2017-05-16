@@ -33,8 +33,8 @@
                 },
                 views:{
                     'content@':{
-                        templateUrl: 'app/Pages/OpportunityPortal/opportunity-question.html',
-                        controller: 'OpportunityQuestionController',
+                        templateUrl: 'app/Pages/ModulePageSystem/module-thread.html',
+                        controller: 'ModuleThreadController',
                         controllerAs: 'vm'
                     }
                 },

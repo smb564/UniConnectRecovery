@@ -2,7 +2,7 @@
     <div class="jumbotron">
         <h1 class="text-center">{{vm.opportunity.title}}</h1>
         <hr>
-        <p ng-bind-html="vm.opportunity.description" linkify></p>
+        <p ng-bind-html="vm.formatString(vm.opportunity.description)" linkify></p>
         <hr>
         <span ng-repeat="tag in vm.opportunity.tags">
                 <span class="label label-default" >{{tag}}</span>

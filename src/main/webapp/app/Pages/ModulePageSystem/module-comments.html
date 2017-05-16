@@ -2,7 +2,7 @@
     <h4>By <u>{{vm.post.ownerLogin}}</u></h4>
     <hr>
     <h2>{{vm.post.title}}</h2>
-    <h4>{{vm.post.description}}</h4>
+    <h4 linkify ng-bind-html="vm.formatString(vm.post.description)"></h4>
 
     <hr>
     <br>

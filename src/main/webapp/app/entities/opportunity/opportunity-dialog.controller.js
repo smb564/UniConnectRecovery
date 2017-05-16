@@ -5,9 +5,9 @@
         .module('uniConnectApp')
         .controller('OpportunityDialogController', OpportunityDialogController);
 
-    OpportunityDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Opportunity', 'DEPARTMENTS', 'INTEREST_FIELDS'];
+    OpportunityDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Opportunity', 'DEPARTMENTS', 'INTEREST_FIELDS', 'Notification'];
 
-    function OpportunityDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Opportunity, DEPARTMENTS, INTEREST_FIELDS) {
+    function OpportunityDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Opportunity, DEPARTMENTS, INTEREST_FIELDS, Notification) {
         var vm = this;
 
         vm.opportunity = entity;
@@ -88,7 +88,7 @@
                     {
                         "semester" : vm.opportunity.targets[i][0],
                         "department" : vm.opportunity.targets[i][1],
-                        "notification" : "A new module named " + result.title + " added. Go to <a href='localhost:8080/#/oportal/" + result.id + "'>this</a>"
+                        "notification" : "A new opportunity named " + result.title + " added. Go to <a href='localhost:8080/#/oportal/" + result.id + "'>this</a>"
                     }
                 )
             }

@@ -62,7 +62,7 @@
                 'viewed' : false
             };
 
-            User.sendNotification({login : vm.opportunity.ownerLogin}, userNotification);
+            User.addNotification({login : vm.opportunity.ownerLogin}, userNotification);
 
         }
 
